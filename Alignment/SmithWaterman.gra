@@ -1,0 +1,37 @@
+Grammar: S
+N: X
+T: a
+X -> read <<< X a
+X -> loop <<< X
+//
+
+Grammar: N
+N: X
+N: R
+N: L
+T: e
+X -> nil <<< e
+L -> nil <<< e
+R -> nil <<< e
+//
+
+Grammar: L
+N: X
+X -> loop <<< X
+//
+
+Grammar: Local
+N: X
+N: R
+N: L
+T: a
+S: R
+R -> loc  <<< R a
+R -> copy <<< X
+X -> copy <<< L
+L -> loc  <<< L a
+//
+
+Product: SW
+S >< S + Local >< L + N * 2 - L * 2
+//
