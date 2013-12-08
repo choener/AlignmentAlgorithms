@@ -1,22 +1,29 @@
-Grammar: S
+Grammar: StepX
 N: X
 T: a
 X -> read <<< X a
 X -> loop <<< X
 //
 
-Grammar: N
+Grammar: DelL
 N: L
 T: e
 L -> nil <<< e
 //
 
-Grammar: L
+Grammar: DelX
 N: X
+T: e
+X -> nil <<< e
+//
+
+Grammar: LoopX
+N: X
+S: X
 X -> loop <<< X
 //
 
-Grammar: O
+Grammar: Local
 N: X
 N: R
 N: L
@@ -29,6 +36,6 @@ L -> lcl <<< L a
 //
 
 Product: NW
-S >< S + O >< L - L * 2 + N * 2
+StepX >< StepX + Local >< LoopX - LoopX * 2 + DelL >< DelX
 //
 

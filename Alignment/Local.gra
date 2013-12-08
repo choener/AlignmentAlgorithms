@@ -1,24 +1,71 @@
-Grammar: S
+Grammar: StepX
 N: X
 T: a
 X -> read <<< X a
 X -> loop <<< X
 //
 
-Grammar: N
-N: X
-N: R
+Grammar: StepL
 N: L
-T: e
-X -> nil <<< e
-L -> nil <<< e
-R -> nil <<< e
+T: a
+L -> read <<< L a
+L -> loop <<< L
 //
 
-Grammar: L
-N: X
+Grammar: StepR
+N: R
+T: a
 S: R
+R -> read <<< R a
+R -> loop <<< R
+//
+
+Grammar: DelL
+N: L
+T: e
+L -> nil <<< e
+//
+
+Grammar: DelX
+N: X
+T: e
+X -> nil <<< e
+//
+
+Grammar: LoopX
+N: X
+S: X
 X -> loop <<< X
+//
+
+Grammar: LoopL
+N: L
+S: L
+L -> loop <<< L
+//
+
+Grammar: LoopR
+N: R
+S: R
+R -> loop <<< R
+//
+
+Grammar: Loop
+N: X
+N: L
+N: R
+S: R
+L -> loop <<< L
+R -> loop <<< R
+X -> loop <<< X
+//
+
+Grammar: Trans
+N: X
+N: L
+N: R
+X -> id <<< L
+R -> id <<< X
 //
 
 Grammar: Local
@@ -27,12 +74,13 @@ N: R
 N: L
 T: a
 S: R
-R -> loc  <<< R a
-R -> copy <<< X
-X -> copy <<< L
-L -> loc  <<< L a
+R -> lcl <<< R a
+R -> id  <<< X
+X -> id  <<< L
+L -> lcl <<< L a
 //
 
-Product: SW
-S >< S + Local >< Local + N * 2 - L * 2
+Product: NW
+StepX >< StepX + StepL >< StepL + StepR >< StepR - Loop * 2 + Trans * 2 + DelL * 2
 //
+

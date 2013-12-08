@@ -1,0 +1,42 @@
+Grammar: Step0
+N: X{3}
+T: a
+X{0} -> read <<< X{0} a
+X{0} -> loop <<< X{0}
+//
+
+Grammar: Step1
+N: X{3}
+T: a
+X{1} -> read <<< X{1} a
+X{1} -> loop <<< X{1}
+//
+
+Grammar: Step2
+N: X{3}
+T: a
+X{2} -> read <<< X{2} a
+X{2} -> loop <<< X{2}
+//
+
+Grammar: Del
+N: X{3}
+T: e
+X{2} -> nil <<< e
+//
+
+Grammar: Loop
+N: X{3}
+X{i} -> loop <<< X{i}
+//
+
+Grammar: Trans
+N: X{3}
+X{0} -> id <<< X{1}
+X{1} -> id <<< X{2}
+//
+
+Product: SW
+Step0 >< Step0 + Step1 >< Step1 + Step2 >< Step2 - Loop * 2 + Del * 2 + Trans * 2
+//
+
