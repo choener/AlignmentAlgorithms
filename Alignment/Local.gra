@@ -17,6 +17,7 @@ R -> nil <<< e
 
 Grammar: L
 N: X
+S: R
 X -> loop <<< X
 //
 
@@ -33,5 +34,5 @@ L -> loc  <<< L a
 //
 
 Product: SW
-S >< S + Local >< L + N * 2 - L * 2
+S >< S + Local >< Local + N * 2 - L * 2
 //

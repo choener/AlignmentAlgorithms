@@ -1,0 +1,34 @@
+Grammar: S
+N: X
+T: a
+X -> read <<< X a
+X -> loop <<< X
+//
+
+Grammar: N
+N: L
+T: e
+L -> nil <<< e
+//
+
+Grammar: L
+N: X
+X -> loop <<< X
+//
+
+Grammar: O
+N: X
+N: R
+N: L
+T: a
+S: R
+R -> lcl <<< R a
+R -> id  <<< X
+X -> id  <<< L
+L -> lcl <<< L a
+//
+
+Product: NW
+S >< S + O >< L - L * 2 + N * 2
+//
+
