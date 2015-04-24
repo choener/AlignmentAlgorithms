@@ -1,24 +1,22 @@
 name:           AlignmentAlgorithms
-version:        0.0.0.1
-author:         Christian Hoener zu Siederdissen, 2013
-copyright:      Christian Hoener zu Siederdissen, 2013
+version:        0.0.1.0
+author:         Christian Hoener zu Siederdissen, 2013-2015
+copyright:      Christian Hoener zu Siederdissen, 2013-2015
 homepage:       http://www.tbi.univie.ac.at/~choener/
-maintainer:     choener@tbi.univie.ac.at
-category:       Algorithms, Data Structures, Bioinformatics
+maintainer:     choener@bioinf.uni-leipzig.de
+category:       Algorithms, Data Structures, Bioinformatics, Linguistics
 license:        GPL-3
 license-file:   LICENSE
 build-type:     Simple
 stability:      experimental
-cabal-version:  >= 1.6.0
+cabal-version:  >= 1.10.0
 synopsis:
                 Sequence alignment algorithms
 description:
                 A selection of sequence alignment algorithms.
                 .
-                Both, global, semi-global, and local alignment algorithms are
-                provided. We make use of formal grammar products to
-                automatically calculate the dynamic programming grammars and
-                signatures.
+                * global alignment (Needleman-Wunsch style)
+                .
                 .
                 .
                 Formal background can be found in two papers:
@@ -44,16 +42,29 @@ description:
 Extra-Source-Files:
   README.md
   changelog
-  Alignment/NeedlemanWunsch.gra
-  Alignment/SmithWaterman.gra
+
+--  Alignment/NeedlemanWunsch.gra
+--  Alignment/SmithWaterman.gra
 
 library
-  build-depends:
-    base >= 4 && < 5
+  build-depends: base             >= 4        && < 5
+               , containers       == 0.5.*
+               , vector           == 0.10.*
+               , ADPfusion        == 0.4.0.*
+               , FormalGrammars   == 0.2.0.*
+               , GrammarProducts  == 0.1.0.*
+               , PrimitiveArray   == 0.6.0.*
   exposed-modules:
-    Alignment.NeedlemanWunsch
-    Alignment.SmithWaterman
-
+    DP.Alignment.Global.Tapes2
+--    Alignment.NeedlemanWunsch
+--    Alignment.SmithWaterman
+  default-language:
+    Haskell2010
+  default-extensions: BangPatterns
+                    , TypeFamilies
+                    , TemplateHaskell
+                    , QuasiQuotes
+                    , FlexibleContexts
   ghc-options:
     -O2 -funbox-strict-fields
 
