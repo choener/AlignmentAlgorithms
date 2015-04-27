@@ -48,12 +48,13 @@ Extra-Source-Files:
 
 library
   build-depends: base             >= 4        && < 5
-               , containers       == 0.5.*
-               , vector           == 0.10.*
                , ADPfusion        == 0.4.0.*
+               , containers       == 0.5.*
+               , fmlist           >= 0.9      && < 0.10
                , FormalGrammars   == 0.2.0.*
                , GrammarProducts  == 0.1.0.*
                , PrimitiveArray   == 0.6.0.*
+               , vector           == 0.10.*
   exposed-modules:
     DP.Alignment.Global.Tapes2
 --    Alignment.NeedlemanWunsch

@@ -10,8 +10,10 @@
 
 module DP.Alignment.Global.Tapes2 where
 
-import Data.Sequence (Seq,empty,(|>))
-import Data.Vector.Fusion.Stream.Monadic (Stream)
+import           Data.Sequence (Seq,empty,(|>))
+import           Data.Vector.Fusion.Stream.Monadic (Stream)
+import qualified Data.FMList as F
+import           Data.FMList (FMList)
 
 import ADP.Fusion
 import Data.PrimitiveArray
@@ -39,6 +41,8 @@ Emit: Global
 makeAlgebraProductH ['h] ''SigGlobal
 
 -- | Generic backtracking scheme.
+--
+-- NOTE @Seq@ is strict ...
 
 pretty :: Monad m => u -> l -> SigGlobal m (Seq (u,l)) (Stream m (Seq (u,l))) u l
 pretty ud ld = SigGlobal
@@ -49,4 +53,23 @@ pretty ud ld = SigGlobal
   , h     = return . id
   }
 {-# Inline pretty #-}
+
+-- | Generic backtracking scheme via @FMList@s.
+
+prettyF :: Monad m => u -> l -> SigGlobal m (FMList (u,l)) (Stream m (FMList (u,l))) u l
+prettyF ud ld = SigGlobal
+  { done  = \ _ -> F.empty
+  , align = \ x (Z:.l:.u) -> x `F.snoc` (u ,l )
+  , indel = \ x (Z:._:.u) -> x `F.snoc` (u ,ld)
+  , delin = \ x (Z:.l:._) -> x `F.snoc` (ud,l )
+  , h     = return . id
+  }
+{-# Inline prettyF #-}
+
+-- | Turn a single @FMList@ backtracking result into the corresponding
+-- list.
+
+runPrettyF :: FMList (u,l) -> [(u,l)]
+runPrettyF = F.toList
+{-# Inline runPrettyF #-}
 
