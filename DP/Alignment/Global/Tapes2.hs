@@ -39,6 +39,7 @@ Emit: Global
 |]
 
 makeAlgebraProductH ['h] ''SigGlobal
+{-# Inline (<**) #-}
 
 -- | Generic backtracking scheme.
 --
