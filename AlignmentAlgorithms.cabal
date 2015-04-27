@@ -41,7 +41,7 @@ description:
 
 Extra-Source-Files:
   README.md
-  changelog
+  changelog.md
 
 --  Alignment/NeedlemanWunsch.gra
 --  Alignment/SmithWaterman.gra
