@@ -11,12 +11,12 @@
 module DP.Alignment.Global.Tapes2 where
 
 import           Data.Sequence (Seq,empty,(|>))
-import           Data.Vector.Fusion.Stream.Monadic (Stream)
+import           Data.Vector.Fusion.Stream.Monadic (Stream,toList)
 import qualified Data.FMList as F
 import           Data.FMList (FMList)
 
 import ADP.Fusion
-import Data.PrimitiveArray
+import Data.PrimitiveArray hiding (toList)
 import FormalLanguage
 
 
@@ -40,6 +40,7 @@ Emit: Global
 
 makeAlgebraProductH ['h] ''SigGlobal
 {-# Inline (<**) #-}
+{-# Inline (<||) #-}
 
 -- | Generic backtracking scheme.
 --
@@ -57,13 +58,13 @@ pretty ud ld = SigGlobal
 
 -- | Generic backtracking scheme via @FMList@s.
 
-prettyF :: Monad m => u -> l -> SigGlobal m (FMList (u,l)) (Stream m (FMList (u,l))) u l
+prettyF :: Monad m => u -> l -> SigGlobal m (FMList (u,l)) [FMList (u,l)] u l
 prettyF ud ld = SigGlobal
   { done  = \ _ -> F.empty
   , align = \ x (Z:.l:.u) -> x `F.snoc` (u ,l )
   , indel = \ x (Z:._:.u) -> x `F.snoc` (u ,ld)
   , delin = \ x (Z:.l:._) -> x `F.snoc` (ud,l )
-  , h     = return . id
+  , h     = toList
   }
 {-# Inline prettyF #-}
 
