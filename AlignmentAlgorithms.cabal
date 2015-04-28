@@ -2,7 +2,7 @@ name:           AlignmentAlgorithms
 version:        0.0.1.0
 author:         Christian Hoener zu Siederdissen, 2013-2015
 copyright:      Christian Hoener zu Siederdissen, 2013-2015
-homepage:       http://www.tbi.univie.ac.at/~choener/
+homepage:       http://www.bioinf.uni-leipzig.de/Software/gADP/
 maintainer:     choener@bioinf.uni-leipzig.de
 category:       Algorithms, Data Structures, Bioinformatics, Linguistics
 license:        GPL-3
@@ -11,29 +11,46 @@ build-type:     Simple
 stability:      experimental
 cabal-version:  >= 1.10.0
 synopsis:
-                Sequence alignment algorithms
+                Collection of alignment algorithms
 description:
-                A selection of sequence alignment algorithms.
+                A selection of (sequence) alignment algorithms. Both terminal,
+                and syntactic variables, as well as the index type is not fixed
+                here. This makes it possible to select the correct structure of
+                the grammar here, but bind the required data type for alignment
+                in user code.
+                .
+                That being said, these algorithms are mostly aimed towards
+                sequence alignment problems.
                 .
                 * global alignment (Needleman-Wunsch style)
                 .
                 .
                 .
-                Formal background can be found in two papers:
+                @
+                Christian Hoener zu Siederdissen
+                Sneaking Around ConcatMap: Efficient Combinators for Dynamic Programming
+                2012. Proceedings of the 17th ACM SIGPLAN international conference on Functional programming
+                <http://doi.acm.org/10.1145/2364527.2364559> preprint: <http://www.tbi.univie.ac.at/newpapers/pdfs/TBI-p-2012-2.pdf>
+                @
                 .
                 @
-                Christian Höner zu Siederdissen, Ivo L. Hofacker, and Peter F. Stadler
-                Product Grammars for Alignment and Folding
-                submitted
+                Andrew Farmer, Christian Höner zu Siederdissen, and Andy Gill.
+                The HERMIT in the stream: fusing stream fusion’s concatMap.
+                2014. Proceedings of the ACM SIGPLAN 2014 workshop on Partial evaluation and program manipulation.
+                <http://dl.acm.org/citation.cfm?doid=2543728.2543736>
                 @
                 .
-                and
+                @
+                Christian Höner zu Siederdissen, Ivo L. Hofacker, and Peter F. Stadler.
+                Product Grammars for Alignment and Folding.
+                2014. IEEE/ACM Transactions on Computational Biology and Bioinformatics. 99.
+                <http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=6819790>
+                @
                 .
                 @
-                Christian Höner zu Siederdissen, Ivo L. Hofacker, and Peter F. Stadler
-                How to Multiply Dynamic Programming Algorithms
-                Brazilian Symposium on Bioinformatics (BSB 2013)
-                Lecture Notes in Bioinformatics 8213, Springer, Heidelberg
+                Christian Höner zu Siederdissen, Sonja J. Prohaska, and Peter F. Stadler.
+                Algebraic Dynamic Programming over General Data Structures.
+                2015. submitted.
                 @
                 .
 
@@ -43,11 +60,10 @@ Extra-Source-Files:
   README.md
   changelog.md
 
---  Alignment/NeedlemanWunsch.gra
---  Alignment/SmithWaterman.gra
+
 
 library
-  build-depends: base             >= 4        && < 5
+  build-depends: base             >= 4.7      && < 4.9
                , ADPfusion        == 0.4.0.*
                , containers       == 0.5.*
                , fmlist           >= 0.9      && < 0.10
@@ -57,8 +73,6 @@ library
                , vector           == 0.10.*
   exposed-modules:
     DP.Alignment.Global.Tapes2
---    Alignment.NeedlemanWunsch
---    Alignment.SmithWaterman
   default-language:
     Haskell2010
   default-extensions: BangPatterns

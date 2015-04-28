@@ -39,39 +39,23 @@ Emit: Global
 |]
 
 makeAlgebraProductH ['h] ''SigGlobal
-{-# Inline (<**) #-}
-{-# Inline (<||) #-}
-
--- | Generic backtracking scheme.
---
--- NOTE @Seq@ is strict ...
-
-pretty :: Monad m => u -> l -> SigGlobal m (Seq (u,l)) (Stream m (Seq (u,l))) u l
-pretty ud ld = SigGlobal
-  { done  = \ _ -> empty
-  , align = \ x (Z:.l:.u) -> x |> (u ,l )
-  , indel = \ x (Z:._:.u) -> x |> (u ,ld)
-  , delin = \ x (Z:.l:._) -> x |> (ud,l )
-  , h     = return . id
-  }
-{-# Inline pretty #-}
 
 -- | Generic backtracking scheme via @FMList@s.
 
-prettyF :: Monad m => u -> l -> SigGlobal m (FMList (u,l)) [FMList (u,l)] u l
-prettyF ud ld = SigGlobal
+backtrack :: Monad m => u -> l -> SigGlobal m (FMList (u,l)) [FMList (u,l)] u l
+backtrack ud ld = SigGlobal
   { done  = \ _ -> F.empty
   , align = \ x (Z:.l:.u) -> x `F.snoc` (u ,l )
   , indel = \ x (Z:._:.u) -> x `F.snoc` (u ,ld)
   , delin = \ x (Z:.l:._) -> x `F.snoc` (ud,l )
   , h     = toList
   }
-{-# Inline prettyF #-}
+{-# Inline backtrack #-}
 
 -- | Turn a single @FMList@ backtracking result into the corresponding
 -- list.
 
-runPrettyF :: FMList (u,l) -> [(u,l)]
-runPrettyF = F.toList
-{-# Inline runPrettyF #-}
+runBacktrack :: FMList (u,l) -> [(u,l)]
+runBacktrack = F.toList
+{-# Inline runBacktrack #-}
 
