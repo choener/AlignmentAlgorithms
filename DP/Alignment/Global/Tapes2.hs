@@ -26,28 +26,28 @@ import FormalLanguage
 [formalLanguage|
 Grammar: Global
 N: X
-T: u
 T: l
+T: u
 S: [X,X]
 [X,X] -> done  <<< [e,e]
-[X,X] -> align <<< [X,X] [u,l]
-[X,X] -> indel <<< [X,X] [-,l]
-[X,X] -> delin <<< [X,X] [u,-]
+[X,X] -> align <<< [X,X] [l,u]
+[X,X] -> indel <<< [X,X] [-,u]
+[X,X] -> delin <<< [X,X] [l,-]
 //
 
 Emit: Global
 |]
 
-makeAlgebraProductH ['h] ''SigGlobal
+makeAlgebraProduct ''SigGlobal
 
 -- | Generic backtracking scheme via @FMList@s.
 
-backtrack :: Monad m => u -> l -> SigGlobal m (FMList (u,l)) [FMList (u,l)] u l
+backtrack :: Monad m => u -> l -> SigGlobal m (FMList (l,u)) [FMList (l,u)] l u
 backtrack ud ld = SigGlobal
   { done  = \ _ -> F.empty
-  , align = \ x (Z:.l:.u) -> x `F.snoc` (u ,l )
-  , indel = \ x (Z:._:.u) -> x `F.snoc` (u ,ld)
-  , delin = \ x (Z:.l:._) -> x `F.snoc` (ud,l )
+  , align = \ x (Z:.l:.u) -> x `F.snoc` (l ,u )
+  , indel = \ x (Z:._:.u) -> x `F.snoc` (ld,u )
+  , delin = \ x (Z:.l:._) -> x `F.snoc` (l ,ud)
   , h     = toList
   }
 {-# Inline backtrack #-}
