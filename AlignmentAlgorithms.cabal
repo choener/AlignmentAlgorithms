@@ -10,14 +10,16 @@ license-file:   LICENSE
 build-type:     Simple
 stability:      experimental
 cabal-version:  >= 1.10.0
-synopsis:
-                Collection of alignment algorithms
+tested-with:    GHC == 7.8.4, GHC == 7.10.1
+synopsis:       Collection of alignment algorithms
 description:
                 A selection of (sequence) alignment algorithms. Both terminal,
                 and syntactic variables, as well as the index type is not fixed
                 here. This makes it possible to select the correct structure of
                 the grammar here, but bind the required data type for alignment
                 in user code.
+                .
+                <https://github.com/choener/AlignmentAlgorithms/README.md>
                 .
                 That being said, these algorithms are mostly aimed towards
                 sequence alignment problems.
@@ -78,10 +80,10 @@ library
   default-extensions: BangPatterns
                     , FlexibleContexts
                     , FlexibleInstances
+                    , MultiParamTypeClasses
                     , QuasiQuotes
                     , TemplateHaskell
                     , TypeFamilies
-                    , MultiParamTypeClasses
   ghc-options:
     -O2 -funbox-strict-fields
 
