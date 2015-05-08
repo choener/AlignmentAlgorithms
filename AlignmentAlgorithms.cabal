@@ -19,7 +19,7 @@ description:
                 the grammar here, but bind the required data type for alignment
                 in user code.
                 .
-                <https://github.com/choener/AlignmentAlgorithms/README.md>
+                <https://github.com/choener/AlignmentAlgorithms/blob/master/README.md>
                 .
                 That being said, these algorithms are mostly aimed towards
                 sequence alignment problems.
