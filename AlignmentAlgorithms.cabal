@@ -3,6 +3,8 @@ version:        0.0.2.0
 author:         Christian Hoener zu Siederdissen, 2013-2015
 copyright:      Christian Hoener zu Siederdissen, 2013-2015
 homepage:       http://www.bioinf.uni-leipzig.de/Software/gADP/
+homepage:       https://github.com/choener/AlignmentAlgorithms
+bug-reports:    https://github.com/choener/AlignmentAlgorithms/issues
 maintainer:     choener@bioinf.uni-leipzig.de
 category:       Algorithms, Data Structures, Bioinformatics, Linguistics
 license:        GPL-3
