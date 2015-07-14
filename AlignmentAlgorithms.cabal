@@ -2,7 +2,6 @@ name:           AlignmentAlgorithms
 version:        0.0.2.0
 author:         Christian Hoener zu Siederdissen, 2013-2015
 copyright:      Christian Hoener zu Siederdissen, 2013-2015
-homepage:       http://www.bioinf.uni-leipzig.de/Software/gADP/
 homepage:       https://github.com/choener/AlignmentAlgorithms
 bug-reports:    https://github.com/choener/AlignmentAlgorithms/issues
 maintainer:     choener@bioinf.uni-leipzig.de
@@ -15,47 +14,20 @@ cabal-version:  >= 1.10.0
 tested-with:    GHC == 7.8.4, GHC == 7.10.1
 synopsis:       Collection of alignment algorithms
 description:
+                <http://www.bioinf.uni-leipzig.de/Software/gADP/ generalized Algebraic Dynamic Programming>
+                .
                 A selection of (sequence) alignment algorithms. Both terminal,
                 and syntactic variables, as well as the index type is not fixed
                 here. This makes it possible to select the correct structure of
                 the grammar here, but bind the required data type for alignment
                 in user code.
                 .
-                <https://github.com/choener/AlignmentAlgorithms/blob/master/README.md>
-                .
                 That being said, these algorithms are mostly aimed towards
                 sequence alignment problems.
                 .
+                List of grammars:
+                .
                 * global alignment (Needleman-Wunsch style)
-                .
-                .
-                .
-                @
-                Christian Hoener zu Siederdissen
-                Sneaking Around ConcatMap: Efficient Combinators for Dynamic Programming
-                2012. Proceedings of the 17th ACM SIGPLAN international conference on Functional programming
-                <http://doi.acm.org/10.1145/2364527.2364559> preprint: <http://www.tbi.univie.ac.at/newpapers/pdfs/TBI-p-2012-2.pdf>
-                @
-                .
-                @
-                Andrew Farmer, Christian Höner zu Siederdissen, and Andy Gill.
-                The HERMIT in the stream: fusing stream fusion’s concatMap.
-                2014. Proceedings of the ACM SIGPLAN 2014 workshop on Partial evaluation and program manipulation.
-                <http://dl.acm.org/citation.cfm?doid=2543728.2543736>
-                @
-                .
-                @
-                Christian Höner zu Siederdissen, Ivo L. Hofacker, and Peter F. Stadler.
-                Product Grammars for Alignment and Folding.
-                2014. IEEE/ACM Transactions on Computational Biology and Bioinformatics. 99.
-                <http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=6819790>
-                @
-                .
-                @
-                Christian Höner zu Siederdissen, Sonja J. Prohaska, and Peter F. Stadler.
-                Algebraic Dynamic Programming over General Data Structures.
-                2015. submitted.
-                @
                 .
 
 
