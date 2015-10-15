@@ -52,10 +52,22 @@ backtrack ud ld = SigGlobal
   }
 {-# Inline backtrack #-}
 
+-- | Backtracking with more options
+
+backtrackFun :: Monad m => (l -> u -> r) -> u -> l -> SigGlobal m (FMList r) [FMList r] l u
+backtrackFun f ud ld = SigGlobal
+  { done  = \ _ -> F.empty
+  , align = \ x (Z:.l:.u) -> x `F.snoc` f l  u
+  , indel = \ x (Z:._:.u) -> x `F.snoc` f ld u
+  , delin = \ x (Z:.l:._) -> x `F.snoc` f l  ud
+  , h     = toList
+  }
+{-# Inline backtrackFun #-}
+
 -- | Turn a single @FMList@ backtracking result into the corresponding
 -- list.
 
-runBacktrack :: FMList (u,l) -> [(u,l)]
+runBacktrack :: FMList r -> [r]
 runBacktrack = F.toList
 {-# Inline runBacktrack #-}
 
