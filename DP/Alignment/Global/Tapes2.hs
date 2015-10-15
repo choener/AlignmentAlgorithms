@@ -54,12 +54,12 @@ backtrack ud ld = SigGlobal
 
 -- | Backtracking with more options
 
-backtrackFun :: Monad m => (l -> u -> r) -> u -> l -> SigGlobal m (FMList r) [FMList r] l u
-backtrackFun f ud ld = SigGlobal
+backtrackFun :: Monad m => (l -> u -> r) -> (l -> u -> r) -> u -> l -> SigGlobal m (FMList r) [FMList r] l u
+backtrackFun f g ud ld = SigGlobal
   { done  = \ _ -> F.empty
   , align = \ x (Z:.l:.u) -> x `F.snoc` f l  u
-  , indel = \ x (Z:._:.u) -> x `F.snoc` f ld u
-  , delin = \ x (Z:.l:._) -> x `F.snoc` f l  ud
+  , indel = \ x (Z:._:.u) -> x `F.snoc` g ld u
+  , delin = \ x (Z:.l:._) -> x `F.snoc` g l  ud
   , h     = toList
   }
 {-# Inline backtrackFun #-}
