@@ -1,3 +1,9 @@
+0.0.2.1
+-------
+
+- addded and updated stack files
+- updated travis.yml
+
 0.0.1.0
 -------
 
