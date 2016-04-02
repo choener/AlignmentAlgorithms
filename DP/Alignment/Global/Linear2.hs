@@ -8,16 +8,16 @@
 -- have no frameshift within the sequence. Alternatively, specify a derived
 -- grammar of higher complexity.
 
-module DP.Alignment.Global.Tapes2 where
+module DP.Alignment.Global.Linear2 where
 
+import           Data.FMList (FMList)
 import           Data.Sequence (Seq,empty,(|>))
 import           Data.Vector.Fusion.Stream.Monadic (Stream,toList)
 import qualified Data.FMList as F
-import           Data.FMList (FMList)
 
-import ADP.Fusion
-import Data.PrimitiveArray hiding (toList)
-import FormalLanguage
+import           ADP.Fusion
+import           Data.PrimitiveArray hiding (toList)
+import           FormalLanguage
 
 
 

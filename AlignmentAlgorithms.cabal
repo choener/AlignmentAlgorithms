@@ -39,7 +39,7 @@ Extra-Source-Files:
 
 
 library
-  build-depends: base             >= 4.7      && < 4.9
+  build-depends: base             >= 4.7      && < 5.0
                , ADPfusion        >= 0.4.0.2  && < 0.5.3
                , containers       >= 0.5      && < 0.6
                , fmlist           >= 0.9      && < 0.10
@@ -48,7 +48,9 @@ library
                , PrimitiveArray   >= 0.6.0    && < 0.7.1
                , vector           >= 0.10     && < 0.12
   exposed-modules:
-    DP.Alignment.Global.Tapes2
+    DP.Alignment.Global.Affine2
+    DP.Alignment.Global.Infix2
+    DP.Alignment.Global.Linear2
   default-language:
     Haskell2010
   default-extensions: BangPatterns
