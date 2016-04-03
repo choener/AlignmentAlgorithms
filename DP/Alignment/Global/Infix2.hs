@@ -35,12 +35,12 @@ S: S
 -- consume prefix on upper tape
 
 [P,U] -> done  <<< [e,e]
-[P,U] -> prePU <<< [-,u] [P,U]
+[P,U] -> prePU <<< [P,U] [-,u]
 
 -- consume prefix on lower tape
 
 [U,P] -> done  <<< [e,e]
-[U,P] -> preUP <<< [b,-] [U,P]
+[U,P] -> preUP <<< [U,P] [b,-]
 
 -- normal affine grammar (but with additional options to transition to
 -- prefix
@@ -49,33 +49,34 @@ S: S
 [M,M] -> align <<< [M,M] [b,u]
 [M,M] -> align <<< [D,D] [b,u]
 [M,M] -> align <<< [I,I] [b,u]
-[M,M] -> toPUM <<< [P,U]
-[M,M] -> toUPM <<< [U,P]
+[M,M] -> toPUM <<< [P,U] [-,u]
+[M,M] -> toUPM <<< [U,P] [b,-]
 
 -- affine deletions.
 
 [D,D] -> openU <<< [M,M] [-,u]
 [D,D] -> contU <<< [D,D] [-,u]
 [D,D] -> openU <<< [I,I] [-,u]
-[D,D] -> toPUD <<< [P,U]
-[D,D] -> toUPD <<< [U,P]
+[D,D] -> toPUD <<< [P,U] [-,u]
+[D,D] -> toUPD <<< [U,P] [b,-]
 
 [I,I] -> openL <<< [M,M] [b,-]
 [I,I] -> openL <<< [D,D] [b,-]
-[I,I] -> contU <<< [I,I] [b,-]
-[I,I] -> toPUI <<< [P,U]
-[I,I] -> toUPI <<< [U,P]
+[I,I] -> contL <<< [I,I] [b,-]
+[I,I] -> toPUI <<< [P,U] [-,u]
+[I,I] -> toUPI <<< [U,P] [b,-]
 
 -- consume suffix on upper tape
 
-[S,U] -> frSUM <<< [M,M]
-[S,U] -> frSUD <<< [D,D]
-[S,U] -> frSUI <<< [I,I]
+[S,U] -> frSUM <<< [M,M] [-,u]
+[S,U] -> frSUD <<< [D,D] [-,u]
+[S,U] -> frSUI <<< [I,I] [-,u]
 [S,U] -> sufSU <<< [S,U] [-,u]
 
-[U,S] -> frUSM <<< [M,M]
-[U,S] -> frUSD <<< [D,D]
-[U,S] -> frUSI <<< [I,I]
+[U,S] -> frUSM <<< [M,M] [b,-]
+[U,S] -> frUSD <<< [D,D] [b,-]
+[U,S] -> frUSI <<< [I,I] [b,-]
+[U,S] -> sufUS <<< [U,S] [b,-]
 
 -- we can go directly to the affine part, or start in a suffix system. No
 -- extra costs here, because we already pay in @frSUM@ etc
@@ -88,40 +89,8 @@ S: S
 
 //
 
+Emit: Infix
 |]
 
---makeAlgebraProduct ''SigInfix
-
-{-
--- | Generic backtracking scheme via @FMList@s.
-
-backtrack :: Monad m => u -> l -> SigGlobal m (FMList (l,u)) [FMList (l,u)] l u
-backtrack ud ld = SigGlobal
-  { done  = \ _ -> F.empty
-  , align = \ x (Z:.l:.u) -> x `F.snoc` (l ,u )
-  , indel = \ x (Z:._:.u) -> x `F.snoc` (ld,u )
-  , delin = \ x (Z:.l:._) -> x `F.snoc` (l ,ud)
-  , h     = toList
-  }
-{-# Inline backtrack #-}
-
--- | Backtracking with more options
-
-backtrackFun :: Monad m => (l -> u -> r) -> (l -> u -> r) -> u -> l -> SigGlobal m (FMList r) [FMList r] l u
-backtrackFun f g ud ld = SigGlobal
-  { done  = \ _ -> F.empty
-  , align = \ x (Z:.l:.u) -> x `F.snoc` f l  u
-  , indel = \ x (Z:._:.u) -> x `F.snoc` g ld u
-  , delin = \ x (Z:.l:._) -> x `F.snoc` g l  ud
-  , h     = toList
-  }
-{-# Inline backtrackFun #-}
-
--- | Turn a single @FMList@ backtracking result into the corresponding
--- list.
-
-runBacktrack :: FMList r -> [r]
-runBacktrack = F.toList
-{-# Inline runBacktrack #-}
--}
+makeAlgebraProduct ''SigInfix
 
