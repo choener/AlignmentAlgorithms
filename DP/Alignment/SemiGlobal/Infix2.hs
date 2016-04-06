@@ -1,7 +1,7 @@
 
 -- | Affine grammar with zero-cost prefixes and suffixes.
 
-module DP.Alignment.Global.Infix2 where
+module DP.Alignment.SemiGlobal.Infix2 where
 
 import           Data.FMList (FMList)
 import           Data.Sequence (Seq,empty,(|>))
