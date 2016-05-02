@@ -1,5 +1,14 @@
 
-module DP.Alignment.Global.Affine2 where
+-- | Very simple pairwise global alignment. The terminal tapes may contain
+-- the atomic types @u@ and @l@ which means that one may align sequences of
+-- different types.
+--
+-- In case you want to align nucleotides to amino acids, this version
+-- should only be used if the nucleotides are already in triplet form and
+-- have no frameshift within the sequence. Alternatively, specify a derived
+-- grammar of higher complexity.
+
+module DP.Seq.Align.Global.Linear2 where
 
 import           Data.FMList (FMList)
 import           Data.Sequence (Seq,empty,(|>))
@@ -15,39 +24,22 @@ import           FormalLanguage
 -- | Define signature and grammar
 
 [formalLanguage|
-Verbose
-Grammar: Gotoh
-N: S
-N: M
-N: D
-N: I
-T: b
+Grammar: Global
+N: X
+T: l
 T: u
-S: [S,S]
-[S,S] -> start <<< [M,M]
-[S,S] -> start <<< [D,D]
-[S,S] -> start <<< [I,I]
-
-[M,M] -> done  <<< [e,e]
-[M,M] -> align <<< [M,M] [b,u]
-[M,M] -> align <<< [D,D] [b,u]
-[M,M] -> align <<< [I,I] [b,u]
-
-[D,D] -> openU <<< [M,M] [-,u]
-[D,D] -> contU <<< [D,D] [-,u]
-[D,D] -> openU <<< [I,I] [-,u]
-
-[I,I] -> openL <<< [M,M] [b,-]
-[I,I] -> openL <<< [D,D] [b,-]
-[I,I] -> contU <<< [I,I] [b,-]
+S: [X,X]
+[X,X] -> done  <<< [e,e]
+[X,X] -> align <<< [X,X] [l,u]
+[X,X] -> indel <<< [X,X] [-,u]
+[X,X] -> delin <<< [X,X] [l,-]
 //
 
-Emit: Gotoh
+Emit: Global
 |]
 
-makeAlgebraProduct ''SigGotoh
+makeAlgebraProduct ''SigGlobal
 
-{-
 -- | Generic backtracking scheme via @FMList@s.
 
 backtrack :: Monad m => u -> l -> SigGlobal m (FMList (l,u)) [FMList (l,u)] l u
@@ -78,5 +70,4 @@ backtrackFun f g ud ld = SigGlobal
 runBacktrack :: FMList r -> [r]
 runBacktrack = F.toList
 {-# Inline runBacktrack #-}
--}
 

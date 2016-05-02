@@ -1,5 +1,5 @@
 name:           AlignmentAlgorithms
-version:        0.0.2.2
+version:        0.1.0.0
 author:         Christian Hoener zu Siederdissen, 2013-2015
 copyright:      Christian Hoener zu Siederdissen, 2013-2015
 homepage:       https://github.com/choener/AlignmentAlgorithms
@@ -25,7 +25,7 @@ description:
                 That being said, these algorithms are mostly aimed towards
                 sequence alignment problems.
                 .
-                List of grammars:
+                List of grammars for sequences:
                 .
                 * global alignment
                   * linear scoring: Needleman-Wunsch style
@@ -35,6 +35,22 @@ description:
                 * semiglobal alignment
                   * overhang alignment
                 .
+                List of grammar for trees:
+                .
+                * global alignment
+                  * linear scoring
+                  .
+                  * affine scoring
+                  .
+                  * simplified affine scoring
+                .
+                * global editing
+                  * linear scoring
+                .
+                We now provide tree alignment and editing algorithms as well.
+                We do not depend on ADPfusionForest to achieve this because
+                grammar rules are completely disconnected from the underlying
+                ADPfusion machinery.
 
 
 
@@ -54,10 +70,14 @@ library
                , PrimitiveArray   >= 0.6.0    && < 0.7.1
                , vector           >= 0.10     && < 0.12
   exposed-modules:
-    DP.Alignment.Global.Affine2
-    DP.Alignment.Global.Linear2
-    DP.Alignment.SemiGlobal.Infix2
     DP.HMM.States2
+    DP.Seq.Align.Global.Affine2
+    DP.Seq.Align.Global.Linear2
+    DP.Seq.Align.SemiGlobal.Infix2
+    DP.Tree.Align.Global.Affine2
+    DP.Tree.Align.Global.AffineSmall2
+    DP.Tree.Align.Global.Linear2
+    DP.Tree.Edit.Global.Linear2
   default-language:
     Haskell2010
   default-extensions: BangPatterns
