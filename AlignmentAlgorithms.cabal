@@ -62,13 +62,14 @@ Extra-Source-Files:
 
 library
   build-depends: base             >= 4.7      && < 5.0
-               , ADPfusion        >= 0.4.0.2  && < 0.5.3
                , containers       >= 0.5      && < 0.6
                , fmlist           >= 0.9      && < 0.10
-               , FormalGrammars   >= 0.2.1    && < 0.4
-               , GrammarProducts  >= 0.1.1    && < 0.1.2
-               , PrimitiveArray   >= 0.6.0    && < 0.7.2
                , vector           >= 0.10     && < 0.12
+               --
+               , ADPfusion        == 0.5.2.*
+               , FormalGrammars   == 0.3.1.*
+               , GrammarProducts  == 0.1.1.*
+               , PrimitiveArray   == 0.7.1.*
   exposed-modules:
     DP.HMM.States2
     DP.Seq.Align.Global.Affine2

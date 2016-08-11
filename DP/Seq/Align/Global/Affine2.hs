@@ -6,7 +6,7 @@ import           Data.Sequence (Seq,empty,(|>))
 import           Data.Vector.Fusion.Stream.Monadic (Stream,toList)
 import qualified Data.FMList as F
 
-import           ADP.Fusion
+import           ADP.Fusion.Core
 import           Data.PrimitiveArray hiding (toList)
 import           FormalLanguage
 

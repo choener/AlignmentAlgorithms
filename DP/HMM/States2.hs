@@ -1,7 +1,7 @@
 
 module DP.HMM.States2 where
 
-import           ADP.Fusion
+import           ADP.Fusion.Core
 import           Data.PrimitiveArray hiding (toList)
 import           FormalLanguage
 

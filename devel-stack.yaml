@@ -1,13 +1,28 @@
-resolver: lts-5.10
+resolver: lts-6.5
+
 packages:
 - '.'
+- location: ../Lib-PrimitiveArray
+  extra-dep: true
+- location: ../Lib-OrderedBits
+  extra-dep: true
+- location: ../Lib-DPutils
+  extra-dep: true
+- location: ../Lib-ADPfusion
+  extra-dep: true
+- location: ../Lib-FormalGrammars
+  extra-dep: true
+- location: ../Lib-GrammarProducts
+  extra-dep: true
+
 extra-deps:
-- ADPfusion-0.5.1.0
-- FormalGrammars-0.3.0.0
-- GrammarProducts-0.1.1.2
-- OneTuple-0.2.1
-- OrderedBits-0.0.1.0
-- PrimitiveArray-0.7.0.1
+#- ADPfusion-0.5.1.0
+#- FormalGrammars-0.3.0.0
+#- GrammarProducts-0.1.1.2
+#- OneTuple-0.2.1
+#- OrderedBits-0.0.1.0
+#- PrimitiveArray-0.7.0.1
 - tuple-0.3.0.2
+
 flags: {}
 

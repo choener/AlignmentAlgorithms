@@ -3,7 +3,7 @@
 
 module DP.Tree.Align.Global.Linear2 where
 
-import ADP.Fusion
+import ADP.Fusion.Core
 import FormalLanguage.CFG
 
 
