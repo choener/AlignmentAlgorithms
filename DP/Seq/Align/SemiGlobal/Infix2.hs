@@ -49,6 +49,9 @@ S: S
 [M,M] -> align <<< [M,M] [b,u]
 [M,M] -> align <<< [D,D] [b,u]
 [M,M] -> align <<< [I,I] [b,u]
+-- this is actually right, since [P,U] and [U,P] can be empty. In order to
+-- guarantee that the prefix is non-empty, we make sure here that at least
+-- one character is in the respective prefix.
 [M,M] -> toPUM <<< [P,U] [-,u]
 [M,M] -> toUPM <<< [U,P] [b,-]
 
@@ -57,12 +60,16 @@ S: S
 [D,D] -> openU <<< [M,M] [-,u]
 [D,D] -> contU <<< [D,D] [-,u]
 [D,D] -> openU <<< [I,I] [-,u]
+[D,D] -> done  <<< [e,e]
+-- coming from a prefix
 [D,D] -> toPUD <<< [P,U] [-,u]
 [D,D] -> toUPD <<< [U,P] [b,-]
 
 [I,I] -> openL <<< [M,M] [b,-]
 [I,I] -> openL <<< [D,D] [b,-]
 [I,I] -> contL <<< [I,I] [b,-]
+[I,I] -> done  <<< [e,e]
+-- coming from a prefix
 [I,I] -> toPUI <<< [P,U] [-,u]
 [I,I] -> toUPI <<< [U,P] [b,-]
 
