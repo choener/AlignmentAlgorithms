@@ -69,7 +69,7 @@ library
                , ADPfusion        == 0.5.2.*
                , FormalGrammars   == 0.3.1.*
                , GrammarProducts  == 0.1.1.*
-               , PrimitiveArray   == 0.7.1.*
+               , PrimitiveArray   == 0.7.2.*
   exposed-modules:
     DP.HMM.States2
     DP.Seq.Align.Global.Affine2
