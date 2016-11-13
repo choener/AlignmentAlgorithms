@@ -62,9 +62,9 @@ Extra-Source-Files:
 
 library
   build-depends: base             >= 4.7      && < 5.0
-               , containers       >= 0.5      && < 0.6
-               , fmlist           >= 0.9      && < 0.10
-               , vector           >= 0.10     && < 0.12
+               , containers       >= 0.5
+               , fmlist           >= 0.9
+               , vector           >= 0.10
                --
                , ADPfusion        == 0.5.2.*
                , FormalGrammars   == 0.3.1.*
