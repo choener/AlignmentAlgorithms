@@ -1,3 +1,8 @@
+0.1.0.1
+-------
+
+- bumped own version bounds
+
 0.1.0.0
 -------
 

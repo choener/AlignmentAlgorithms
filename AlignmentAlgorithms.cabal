@@ -66,7 +66,7 @@ library
                , fmlist           >= 0.9
                , vector           >= 0.10
                --
-               , ADPfusion        == 0.5.2.*
+               , ADPfusion        == 0.5.3.*
                , FormalGrammars   == 0.3.1.*
                , GrammarProducts  == 0.1.1.*
                , PrimitiveArray   == 0.8.0.*
