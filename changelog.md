@@ -1,3 +1,8 @@
+0.1.1.0
+-------
+
+- Started with generic implementations, for now Data.Vector.*
+
 0.1.0.1
 -------
 

@@ -42,7 +42,11 @@ makeAlgebraProduct ''SigGlobal
 
 -- | Generic backtracking scheme via @FMList@s.
 
-backtrack :: Monad m => u -> l -> SigGlobal m (FMList (l,u)) [FMList (l,u)] l u
+backtrack
+  ∷ Monad m
+  ⇒ u
+  → l
+  → SigGlobal m (FMList (l,u)) [FMList (l,u)] l u
 backtrack ud ld = SigGlobal
   { done  = \ _ -> F.empty
   , align = \ x (Z:.l:.u) -> x `F.snoc` (l ,u )
@@ -54,7 +58,13 @@ backtrack ud ld = SigGlobal
 
 -- | Backtracking with more options
 
-backtrackFun :: Monad m => (l -> u -> r) -> (l -> u -> r) -> u -> l -> SigGlobal m (FMList r) [FMList r] l u
+backtrackFun
+  ∷ Monad m
+  ⇒ (l → u → r)
+  → (l → u → r)
+  → u
+  → l
+  → SigGlobal m (FMList r) [FMList r] l u
 backtrackFun f g ud ld = SigGlobal
   { done  = \ _ -> F.empty
   , align = \ x (Z:.l:.u) -> x `F.snoc` f l  u
