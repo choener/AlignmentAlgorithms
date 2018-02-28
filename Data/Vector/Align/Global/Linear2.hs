@@ -62,14 +62,14 @@ nwScoreForward
   → v a
   → v b
   → ( z
-    , Z:.TwITbl Id Unboxed (Z:.EmptyOk:.EmptyOk) (Z:.PointL I:.PointL I) z
+    , Z:.TwITbl 0 0 Id Unboxed (Z:.EmptyOk:.EmptyOk) (Z:.PointL I:.PointL I) z
     )
 nwScoreForward zero one (<+>) (<*>) fAlign fDelin fIndel i1 i2
   = {-# SCC "nwScoreForward" #-} runST $ do
     arr ← newWithPA (ZZ:..LtPointL n1:..LtPointL n2) zero
     ret ← mutateTablesNew
         $ gGlobal (sScore zero one (<+>) (<*>) fAlign fDelin fIndel)
-                  (ITbl 0 0 (Z:.EmptyOk:.EmptyOk) arr)
+                  (ITbl @0 @0 (Z:.EmptyOk:.EmptyOk) arr)
                   (chr i1)
                   (chr i2)
     let a = let (Z:.r) = ret in unId $ axiom r
