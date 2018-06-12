@@ -88,6 +88,7 @@ library
                     , FlexibleContexts
                     , FlexibleInstances
                     , MultiParamTypeClasses
+                    , PolyKinds
                     , QuasiQuotes
                     , TemplateHaskell
                     , TypeApplications

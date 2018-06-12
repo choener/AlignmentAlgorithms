@@ -41,7 +41,7 @@ sScore zero one (<+>) (<*>) fAlign fDelin fIndel = SigGlobal
   }
 {-# Inline sScore #-}
 
--- |
+-- | Produces the forward score, together with additional information.
 
 nwScoreForward
   ∷ (Typeable z, VU.Unbox z, VG.Vector v a, VG.Vector v b)
@@ -60,19 +60,21 @@ nwScoreForward
   → (    b → z)
   -- ^ insert b, with no a
   → v a
+  -- ^ first input vector with input type @a@
   → v b
+  -- ^ second input with input type @b@
   → ( z
-    , Z:.TwITbl 0 0 Id Unboxed (Z:.EmptyOk:.EmptyOk) (Z:.PointL I:.PointL I) z
+    , Mutated (Z:.TwITbl 0 0 Id Unboxed (Z:.EmptyOk:.EmptyOk) (Z:.PointL I:.PointL I) z)
     )
 nwScoreForward zero one (<+>) (<*>) fAlign fDelin fIndel i1 i2
   = {-# SCC "nwScoreForward" #-} runST $ do
     arr ← newWithPA (ZZ:..LtPointL n1:..LtPointL n2) zero
-    ret ← mutateTablesNew
+    ret ← fillTables
         $ gGlobal (sScore zero one (<+>) (<*>) fAlign fDelin fIndel)
                   (ITbl @0 @0 (Z:.EmptyOk:.EmptyOk) arr)
                   (chr i1)
                   (chr i2)
-    let a = let (Z:.r) = ret in unId $ axiom r
+    let a = let (Z:.r) = mutatedTables ret in unId $ axiom r
     return (a, ret)
     where n1 = VG.length i1
           n2 = VG.length i2
