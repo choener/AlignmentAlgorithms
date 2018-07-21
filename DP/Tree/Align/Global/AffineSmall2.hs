@@ -51,7 +51,3 @@ Emit: Labolg
 
 makeAlgebraProduct ''SigGlobal
 
-resig :: Monad m => SigGlobal m a b c d -> SigLabolg m a b c d
-resig (SigGlobal gdo git gsi gal gin gde gfg gpg gsg gfi gh) = SigLabolg gdo git gsi gal gin gde gfg gpg gsg gfi gh
-{-# Inline resig #-}
-
