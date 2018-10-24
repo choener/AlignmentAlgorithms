@@ -71,7 +71,7 @@ nwScoreForward zero one (<+>) (<*>) fAlign fDelin fIndel i1 i2
     arr ← newWithPA (ZZ:..LtPointL n1:..LtPointL n2) zero
     ret ← fillTables
         $ gGlobal (sScore zero one (<+>) (<*>) fAlign fDelin fIndel)
-                  (ITbl @0 @0 (Z:.EmptyOk:.EmptyOk) arr)
+                  (ITbl @_ @_ @_ @_ @0 @0 (Z:.EmptyOk:.EmptyOk) arr)
                   (chr i1)
                   (chr i2)
     let a = let (Z:.r) = mutatedTables ret in unId $ axiom r
