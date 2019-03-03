@@ -10,7 +10,7 @@ import qualified Data.Vector.Generic as VG
 import qualified Data.Vector.Unboxed as VU
 import           Data.Typeable
 
-import           ADP.Fusion.Point
+import           ADP.Fusion.PointL
 import           DP.Seq.Align.Global.Linear2
 
 
