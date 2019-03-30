@@ -1,17 +1,17 @@
+cabal-version:  2.2
 name:           AlignmentAlgorithms
 version:        0.1.1.0
-author:         Christian Hoener zu Siederdissen, 2013-2017
-copyright:      Christian Hoener zu Siederdissen, 2013-2017
+author:         Christian Hoener zu Siederdissen, 2013-2019
+copyright:      Christian Hoener zu Siederdissen, 2013-2019
 homepage:       https://github.com/choener/AlignmentAlgorithms
 bug-reports:    https://github.com/choener/AlignmentAlgorithms/issues
 maintainer:     choener@bioinf.uni-leipzig.de
 category:       Algorithms, Data Structures, Bioinformatics, Linguistics
-license:        GPL-3
+license:        BSD-3-Clause
 license-file:   LICENSE
 build-type:     Simple
 stability:      experimental
-cabal-version:  >= 1.10.0
-tested-with:    GHC == 8.0.2, GHC == 8.2.1
+tested-with:    GHC == 8.4.4
 synopsis:       Collection of alignment algorithms
 description:
                 <http://www.bioinf.uni-leipzig.de/Software/gADP/ generalized Algebraic Dynamic Programming>
@@ -60,27 +60,26 @@ Extra-Source-Files:
 
 
 
-library
+flag llvm
+  description:  use llvm
+  default:      False
+  manual:       True
+
+
+
+common deps
   build-depends: base             >= 4.7      && < 5.0
                , bytestring
                , containers       >= 0.5
                , fmlist           >= 0.9
                , vector           >= 0.10
+               , text             >= 1.0
                --
                , ADPfusion        == 0.6.0.*
                , FormalGrammars   == 0.3.1.*
                , GrammarProducts  == 0.1.1.*
-               , PrimitiveArray   == 0.9.0.*
-  exposed-modules:
-    Data.Vector.Align.Global.Linear2
-    DP.HMM.States2
-    DP.Seq.Align.Global.Affine2
-    DP.Seq.Align.Global.Linear2
-    DP.Seq.Align.SemiGlobal.Infix2
-    DP.Tree.Align.Global.Affine2
-    DP.Tree.Align.Global.AffineSmall2
-    DP.Tree.Align.Global.Linear2
-    DP.Tree.Edit.Global.Linear2
+               , PrimitiveArray   == 0.9.1.*
+               , SciBaseTypes     == 0.1.0.*
   default-language:
     Haskell2010
   default-extensions: BangPatterns
@@ -97,6 +96,23 @@ library
                     , UnicodeSyntax
   ghc-options:
     -O2 -funbox-strict-fields
+
+
+
+library
+  import:
+    deps
+  exposed-modules:
+    Data.Vector.Align.Global.Linear2
+    DP.HMM.States2
+    DP.Seq.Align.Global.Affine2
+    DP.Seq.Align.Global.Linear2
+    DP.Seq.Align.SemiGlobal.Infix2
+    DP.Tree.Align.Global.Affine2
+    DP.Tree.Align.Global.AffineSmall2
+    DP.Tree.Align.Global.Linear2
+    DP.Tree.Edit.Global.Linear2
+    Data.Text.Levenshtein
 
 
 
@@ -134,6 +150,31 @@ test-suite properties
 --               , tasty-quickcheck             >= 0.8
 --               , tasty-th                     >= 0.1
 --               , vector
+
+
+
+benchmark text-metrics
+  import:
+    deps
+  type:
+    exitcode-stdio-1.0
+  build-depends: base
+               , text-metrics
+               , criterion      >= 1.4
+               --
+               , AlignmentAlgorithms
+  hs-source-dirs:
+    tests
+  main-is:
+    levenshtein.hs
+  ghc-options:
+    -flate-dmd-anal
+    -fspec-constr-keen
+    -fspec-constr-recursive=10
+  if flag(llvm)
+    ghc-options:
+      -fllvm
+      -optlo-O3
 
 
 

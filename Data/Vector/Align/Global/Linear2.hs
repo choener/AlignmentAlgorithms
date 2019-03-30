@@ -10,50 +10,36 @@ import qualified Data.Vector.Generic as VG
 import qualified Data.Vector.Unboxed as VU
 import           Data.Typeable
 
+import           Algebra.Structure.Semiring
+
 import           ADP.Fusion.PointL
 import           DP.Seq.Align.Global.Linear2
 
 
 
 sScore
-  ∷ (Monad m)
-  ⇒ z
-  -- ^ Zero for the score ring
-  → z
-  -- ^ One for the score ring
-  → (z → z → z)
-  -- ^ addition operation with neutral zero
-  → (z → z → z)
-  -- ^ multiplication operation with neutral one
-  → (a → b → z)
+  ∷ (Monad m, Semiring z)
+  ⇒ (a → b → z)
   -- ^ align a with b
   → (a     → z)
   -- ^ insert a, with no b
   → (    b → z)
   -- ^ insert b, with no a
   → SigGlobal m z z a b
-sScore zero one (<+>) (<*>) fAlign fDelin fIndel = SigGlobal
-  { align = \x (Z:.a :.b ) → x <*> fAlign a b
-  , indel = \x (Z:.():.b ) → x <*> fIndel   b
-  , delin = \x (Z:.a :.()) → x <*> fDelin a
+sScore fAlign fDelin fIndel = SigGlobal
+  { align = \x (Z:.a :.b ) → x ⊗ fAlign a b
+  , indel = \x (Z:.():.b ) → x ⊗ fIndel   b
+  , delin = \x (Z:.a :.()) → x ⊗ fDelin a
   , done  = const one
-  , h     = SM.foldl' (<+>) zero
+  , h     = SM.foldl' (⊕) zero
   }
 {-# Inline sScore #-}
 
 -- | Produces the forward score, together with additional information.
 
 nwScoreForward
-  ∷ (Typeable z, VU.Unbox z, VG.Vector v a, VG.Vector v b)
-  ⇒ z
-  -- ^ Zero for the score ring
-  → z
-  -- ^ One for the score ring
-  → (z → z → z)
-  -- ^ addition operation with neutral zero
-  → (z → z → z)
-  -- ^ multiplication operation with neutral one
-  → (a → b → z)
+  ∷ (Typeable z, VU.Unbox z, VG.Vector v a, VG.Vector v b, Semiring z)
+  ⇒ (a → b → z)
   -- ^ align a with b
   → (a     → z)
   -- ^ insert a, with no b
@@ -66,11 +52,11 @@ nwScoreForward
   → ( z
     , Mutated (Z:.TwITbl 0 0 Id Unboxed (Z:.EmptyOk:.EmptyOk) (Z:.PointL I:.PointL I) z)
     )
-nwScoreForward zero one (<+>) (<*>) fAlign fDelin fIndel i1 i2
+nwScoreForward fAlign fDelin fIndel i1 i2
   = {-# SCC "nwScoreForward" #-} runST $ do
     arr ← newWithPA (ZZ:..LtPointL n1:..LtPointL n2) zero
     ret ← fillTables
-        $ gGlobal (sScore zero one (<+>) (<*>) fAlign fDelin fIndel)
+        $ gGlobal (sScore fAlign fDelin fIndel)
                   (ITbl @_ @_ @_ @_ @0 @0 (Z:.EmptyOk:.EmptyOk) arr)
                   (chr i1)
                   (chr i2)
