@@ -26,13 +26,13 @@ import           FormalLanguage
 [formalLanguage|
 Grammar: Global
 N: X
-T: l
+T: d
 T: u
 S: [X,X]
 [X,X] -> done  <<< [e,e]
-[X,X] -> align <<< [X,X] [l,u]
+[X,X] -> align <<< [X,X] [d,u]
 [X,X] -> indel <<< [X,X] [-,u]
-[X,X] -> delin <<< [X,X] [l,-]
+[X,X] -> delin <<< [X,X] [d,-]
 //
 
 Emit: Global

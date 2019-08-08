@@ -1,5 +1,6 @@
-{ mkDerivation, ADPfusion, base, bytestring, containers, fmlist
-, FormalGrammars, GrammarProducts, PrimitiveArray, stdenv, vector
+{ mkDerivation, ADPfusion, base, bytestring, containers, criterion
+, fmlist, FormalGrammars, GrammarProducts, PrimitiveArray
+, SciBaseTypes, stdenv, text, text-metrics, vector
 }:
 mkDerivation {
   pname = "AlignmentAlgorithms";
@@ -7,10 +8,15 @@ mkDerivation {
   src = ./.;
   libraryHaskellDepends = [
     ADPfusion base bytestring containers fmlist FormalGrammars
-    GrammarProducts PrimitiveArray vector
+    GrammarProducts PrimitiveArray SciBaseTypes text vector
   ];
   testHaskellDepends = [ base ];
+  benchmarkHaskellDepends = [
+    ADPfusion base bytestring containers criterion fmlist
+    FormalGrammars GrammarProducts PrimitiveArray SciBaseTypes text
+    text-metrics vector
+  ];
   homepage = "https://github.com/choener/AlignmentAlgorithms";
   description = "Collection of alignment algorithms";
-  license = stdenv.lib.licenses.gpl3;
+  license = stdenv.lib.licenses.bsd3;
 }
