@@ -10,10 +10,10 @@ import           FormalLanguage
 [formalLanguage|
 Verbose
 Grammar: HMM
-N: P  -- plus case
-N: M  -- minus case
+N: P
+N: M
 T: x
-S: M  -- we should start and stop here
+S: M
 P -> pstay <<< P x
 P -> mtop  <<< M x
 M -> mstay <<< M x

@@ -10,8 +10,6 @@ module DP.Tree.Align.Global.AffineSmall2 where
 import ADP.Fusion.Core
 import FormalLanguage.CFG
 
-
-
 [formalLanguage|
 Verbose
 

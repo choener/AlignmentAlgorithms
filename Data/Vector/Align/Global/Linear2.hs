@@ -50,7 +50,7 @@ nwScoreForward
   → v b
   -- ^ second input with input type @b@
   → ( z
-    , Mutated (Z:.TwITbl 0 0 Id Unboxed (Z:.EmptyOk:.EmptyOk) (Z:.PointL I:.PointL I) z)
+    , Mutated (Z:.TwITbl 0 0 Id (Dense VU.Vector) (Z:.EmptyOk:.EmptyOk) (Z:.PointL I:.PointL I) z)
     )
 nwScoreForward fAlign fDelin fIndel i1 i2
   = {-# SCC "nwScoreForward" #-} runST $ do
